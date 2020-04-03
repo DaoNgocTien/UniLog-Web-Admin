@@ -47,7 +47,7 @@ const propsDefault = {
   //header: []
 };
 
-const TableContainer = (WrappedComponent, RegistrationModal, DetailModal, Action, header) => {
+const TableContainer = (WrappedComponent, RegistrationModal, DetailModal, Action, header, name) => {
   //console.log("TableContainer ", props);
   // console.log("TableContainer ", WrappedComponent);
   // console.log("TableContainer ", Action);
@@ -102,6 +102,7 @@ const TableContainer = (WrappedComponent, RegistrationModal, DetailModal, Action
             DetailModal={DetailModal}
             header={header}
             toggleCreateModal={toggleCreateModal}
+            name={name}
           />
         );
       }

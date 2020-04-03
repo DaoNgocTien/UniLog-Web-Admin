@@ -21,10 +21,10 @@ class Admin extends React.Component {
   getRoutes = routes => {
     return routes.map((prop, key) => {
       //console.log("Admin.jsx: " + typeof prop.component);
-      if (prop.layout === "/admin") {
+      if (prop.layout === "/admin" ) {
         if (prop.type === "table") {
           //alert(JSON.stringify(prop));
-          let WrappedComponent = withRouter(TableContainer(prop.component, prop.RegistrationModal, prop.DetailModal, prop.Action, prop.header));
+          let WrappedComponent = withRouter(TableContainer(prop.component, prop.RegistrationModal, prop.DetailModal, prop.Action, prop.header, prop.name));
           return (
             <Route
               path={prop.layout + prop.path}
@@ -70,7 +70,7 @@ class Admin extends React.Component {
             imgSrc: require("assets/img/brand/argon-react.png"),
             imgAlt: "..."
           }}
-        />
+        />        
 
         <div className="main-content " ref="mainContent">
           <Container>

@@ -1,28 +1,30 @@
-import { ServerActionTypes } from "../constants";
-// import fetch from "cross-fetch";
-// import APISettings from "../Url/APISettings";
+import {
+  ServerActionTypes
+} from "../constants";
+import fetch from "cross-fetch";
+import APISettings from "../Url/APISettings";
 
-// const RequestFetchAPI = requestFetching => {
-//   return {
-//     type: ServerActionTypes.REQUEST_FETCH_API,
-//     payload: requestFetching
-//   };
-// };
+// const today = new Date(Date.now());
 
-// const StoreServerList = (serverList = []) => {
-//   return {
-//     type: ServerActionTypes.STORE_SERVER_LIST,
-//     payload: serverList
-//   };
-// };
 
-const StoreServerMasterList = (currentDataList = []) => {
-  //console.log("StoreServerMasterList", currentDataList);
+//  Action creator section
+const storeServerListActionCreator = (serverList = []) => {
+  return {
+    type: ServerActionTypes.STORE_SERVER_LIST,
+    payload: serverList
+  };
+};
+
+const storeServerMasterListActionCreator = (currentDataList = []) => {
+  //console.log("storeServerMasterListActionCreator", currentDataList);
   let servermasterList = [];
   if (currentDataList.length > 0) {
-    //console.log("StoreServerMasterList 2", currentDataList);
+    //console.log("storeServerMasterListActionCreator 2", currentDataList);
     currentDataList.map(server => {
-      return servermasterList.push({ id: server.id, name: server.server_name });
+      return servermasterList.push({
+        id: server.id,
+        name: server.name
+      });
     });
   }
 
@@ -32,59 +34,156 @@ const StoreServerMasterList = (currentDataList = []) => {
   };
 };
 
-const GetServerList = () => {
+const storeCurrentSelectedServerActionCreater = id => {
+  return {
+    type: ServerActionTypes.STORE_CURRENT_SELECTED_SERVER,
+    payload: id
+  };
+};
+
+//  Interactive with reducer section
+const requestGetDataFetch = status => {
+  return {
+    type: ServerActionTypes.REQUEST_FETCH_API,
+    payload: status
+  };
+};
+
+const getServerList = () => {
   return async (dispatch, getState) => {
-    //  curent Server data in store
-    // console.log(
-    //   "State before GetServerList: " + JSON.stringify(getState().Server)
-    // );
     try {
       //  inform store we are going to fetch some data
-      //  await dispatch(RequestFetchAPI(true));
-
-      //  if fetching status of Server component is true
+      await dispatch(requestGetDataFetch(true));
+      // if fetching status of Server component is true
       if (getState().Server.fetchStatus) {
-        // console.log(
-        //   "State after requesting fetching: " +
-        //     JSON.stringify(getState().Server)
-        // );
+        console.log("State: " + JSON.stringify(getState().Login.loginInfor.token));
 
-        //  API call to get Server data
-        // const fetchRequest = await fetch(
-        //   `${APISettings.BASE_API_URL}/${APISettings.SERVER_API_URL}?company_id=4`,
-        //   {
-        //     method: "get",
-        //     headers: {
-        //       "Content-Type": "application/json",
-        //       Authorization:
-        //         "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEwMjIiLCJuYmYiOjE1NzUxODgwOTksImV4cCI6MTU3NTc5Mjg5OSwiaWF0IjoxNTc1MTg4MDk5fQ.f0hQ-13vceS0TYoY6y46CCZ3SAazRLir15K7kIGXtX4"
-        //     }
-        //   }
-        // );
-        // console.log(
-        //   "Response data after requesting get data: " +
-        //     JSON.stringify(fetchRequest)
-        // );
+        //  get list server from API
+        const fetchRequest = await fetch(
+          `${APISettings.BASE_API_URL}/${APISettings.SERVER_API_URL}/?ref_fields=server_detail%2Crepo%2Cserver_account`, {
+            method: "get",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "bearer " + getState().Login.loginInfor.token
+            }
+          }
+        );
+        console.log(
+          "Response data after requesting get data: " +
+          JSON.stringify(fetchRequest)
+        );
 
-        //  the fetch() API only rejects a promise when
+        // the fetch() API only rejects a promise when
         //  a “network error is encountered, although this usually means permissions issues or similar.”
         //  =>  response have ok for other invalid HTTP response
-        // if (!fetchRequest.ok) {
-        //   throw Error(fetchRequest.statusText);
-        // }
-
+        if (!fetchRequest.ok) {
+          throw Error(fetchRequest.statusText);
+        }
+        if (fetchRequest.status === 401) {
+          localStorage.clear();
+          throw Error(fetchRequest.statusText);
+        }
         //  response data
-        //const result = await fetchRequest.json();
+        const result = await fetchRequest.json();
         // console.log(
         //   "Data after requesting get data: " + JSON.stringify(result)
         // );
 
-        //  store payloaddata into store
-        //await dispatch(StoreServerList(result));
+        //  store payload data into store
+        await dispatch(storeServerListActionCreator(result));
+
         //  store servers regist as server master
-//        console.log(getState().Server.currentDataList);
         await dispatch(
-          StoreServerMasterList(getState().Server.currentDataList)
+          storeServerMasterListActionCreator(getState().Server.currentDataList)
+        );
+      }
+    } catch (error) {
+      console.log("An error occurred in server action ", error);
+    } finally {
+      //  wherether call API success or fail, inform store fetching status request is done
+      dispatch(requestGetDataFetch(false));
+    }
+  };
+};
+
+const toggleCreateServerModal = (dispatch, getState) => {
+  return dispatch({
+    type: ServerActionTypes.TOGGLE_CREATE_SERVER_MODAL
+  });
+};
+
+const toggleServerInformationModal = dispatch => {
+  return dispatch({
+    type: ServerActionTypes.TOGGLE_INFORMATION_MODAL
+  });
+};
+
+const storeCurrentSelectedServer = id => {
+  return async (dispatch, getState) => {
+    await dispatch(storeCurrentSelectedServerActionCreater(id));
+  };
+};
+
+//  Create section
+const createNewServer = ({
+  name = "string",
+  type = 1,
+  os = 1,
+  server_code = "string"
+}) => {
+  return async (dispatch, getState) => {
+    try {
+      //  inform store we are going to fetch some data
+      await dispatch(requestGetDataFetch(true));
+
+      // if fetching status of Server component is true
+      if (getState().Server.fetchStatus) {
+        let createModel = {
+          name,
+          type,
+          os,
+          server_code
+        }
+
+        console.log(createModel)
+        //  call API to update general information 
+        const fetchRequest = await fetch(
+          `${APISettings.BASE_API_URL}/${APISettings.SERVER_API_URL}`, {
+            method: "post",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "bearer " + getState().Login.loginInfor.token
+            },
+            body: JSON.stringify(createModel),
+          }
+        );
+        console.log(
+          "Response data after requesting get data: " +
+          JSON.stringify(fetchRequest)
+        );
+
+        // the fetch() API only rejects a promise when
+        //  a “network error is encountered, although this usually means permissions issues or similar.”
+        //  =>  response have ok for other invalid HTTP response
+        if (!fetchRequest.ok) {
+          throw Error(fetchRequest.statusText);
+        }
+        if (fetchRequest.status === 401) {
+          localStorage.clear();
+          throw Error(fetchRequest.statusText);
+        }
+        //  response data
+        const result = await fetchRequest.json();
+        console.log(
+          "Data after requesting get data: " + JSON.stringify(result)
+        );
+
+        //  store payloaddata into store
+        await dispatch(storeServerListActionCreator(result));
+
+        //  store servers regist as server master
+        await dispatch(
+          storeServerMasterListActionCreator(getState().Server.currentDataList)
         );
         // console.log(
         //   "State after requesting get data: " +
@@ -92,139 +191,346 @@ const GetServerList = () => {
         // );
       }
     } catch (error) {
-      console.log("An error occurred.", error);
+      console.log("An error occurred in server action ", error);
     } finally {
       //  wherether call API success or fail, inform store fetching status request is done
-      // dispatch(RequestFetchAPI(false));
+      dispatch(requestGetDataFetch(false));
       // console.log(
       //   "State after finish requesting fetch: " + JSON.stringify(getState().Server)
       // );
     }
   };
 };
-// const CreateNewServer = () => {
-//   return async (dispatch, getState) => {
-//     //  curent Server data in store
-//     console.log(
-//       "State before CreateNewServer: " + JSON.stringify(getState().Server)
-//     );
-//     try {
-//       //  inform store we are going to fetch some data
-//       //  await dispatch(RequestFetchAPI(true));
 
-//       //  if fetching status of Server component is true
-//       if (getState().Server.fetchStatus) {
-//         // console.log(
-//         //   "State after requesting fetching: " +
-//         //     JSON.stringify(getState().Server)
-//         // );
-
-//         //  API call to get Server data
-//         const fetchRequest = await fetch(
-//           `${APISettings.BASE_API_URL}/${APISettings.SERVER_API_URL}?company_id=4`,
-//           {
-//             method: "get",
-//             headers: {
-//               "Content-Type": "application/json",
-//               Authorization:
-//                 "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEwMjIiLCJuYmYiOjE1NzUxODgwOTksImV4cCI6MTU3NTc5Mjg5OSwiaWF0IjoxNTc1MTg4MDk5fQ.f0hQ-13vceS0TYoY6y46CCZ3SAazRLir15K7kIGXtX4"
-//             }
-//           }
-//         );
-//         // console.log(
-//         //   "Response data after requesting get data: " +
-//         //     JSON.stringify(fetchRequest)
-//         // );
-
-//         //  the fetch() API only rejects a promise when
-//         //  a “network error is encountered, although this usually means permissions issues or similar.”
-//         //  =>  response have ok for other invalid HTTP response
-//         if (!fetchRequest.ok) {
-//           throw Error(fetchRequest.statusText);
-//         }
-
-//         //  response data
-//         //const result = await fetchRequest.json();
-//         await fetchRequest.json();
-//         // console.log(
-//         //   "Data after requesting get data: " + JSON.stringify(result)
-//         // );
-
-//         //  renew server list
-//         await GetServerList();
-
-//         // console.log(
-//         //   "State after requesting get data: " +
-//         //     JSON.stringify(getState().Server)
-//         // );
-//       }
-//     } catch (error) {
-//       console.log("An error occurred.", error);
-//     } finally {
-//       //  wherether call API success or fail, inform store fetching status request is done
-//       // dispatch(RequestFetchAPI(false));
-//       // console.log(
-//       //   "State after finish requesting fetch: " + JSON.stringify(getState().Server)
-//       // );
-//     }
-//   };
-// };
-
-const ToggleCreateServerModal = (dispatch, getState) => {
-  return dispatch({ type: ServerActionTypes.TOGGLE_CREATE_SERVER_MODAL });
-};
-
-const ToggleInformationModal = dispatch => {
-  return dispatch({
-    type: ServerActionTypes.TOGGLE_INFORMATION_MODAL
-  });
-};
-
-const StoreCurrentSelectedServerActionCreater = id => {
-  return {
-    type: ServerActionTypes.STORE_CURRENT_SELECTED_SERVER,
-    payload: id
-  };
-};
-
-const StoreCurrentSelectedServer = id => {
+//  Update Server General Information
+const updateServerGeneralInformation = ({
+  id = 0,
+  server_master = 0,
+  name = "string",
+  ip_address = "string",
+  type = 0,
+  os = 0,
+  server_url = "string",
+  description = "string",
+  expire_date = new Date(Date.now()),
+  server_code = "string"
+}) => {
   return async (dispatch, getState) => {
-    await dispatch(StoreCurrentSelectedServerActionCreater(id));
+    try {
+      //  inform store we are going to fetch some data
+      await dispatch(requestGetDataFetch(true));
+
+      // if fetching status of Server component is true
+      if (getState().Server.fetchStatus) {
+        console.log("State: " + JSON.stringify(getState().Login.loginInfor.token));
+        let updateModel = {
+          id,
+          server_master,
+          name,
+          ip_address,
+          type,
+          os,
+          server_url,
+          description,
+          expire_date,
+          server_code,
+          server_detail: null,
+        }
+
+
+        //  call API to update general information 
+        const fetchRequest = await fetch(
+          `${APISettings.BASE_API_URL}/${APISettings.SERVER_API_URL}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "bearer " + getState().Login.loginInfor.token
+            },
+            body: JSON.stringify(updateModel),
+          }
+        );
+        console.log(
+          "Response data after requesting get data: " +
+          JSON.stringify(fetchRequest)
+        );
+
+        // the fetch() API only rejects a promise when
+        //  a “network error is encountered, although this usually means permissions issues or similar.”
+        //  =>  response have ok for other invalid HTTP response
+        if (!fetchRequest.ok) {
+          throw Error(fetchRequest.statusText);
+        }
+        if (fetchRequest.status === 401) {
+          localStorage.clear();
+          throw Error(fetchRequest.statusText);
+        }
+        //  response data
+        const result = await fetchRequest.json();
+        console.log(
+          "Data after requesting get data: " + JSON.stringify(result)
+        );
+
+        //  store payloaddata into store
+        await dispatch(storeServerListActionCreator(result));
+
+        //  store servers regist as server master
+        await dispatch(
+          storeServerMasterListActionCreator(getState().Server.currentDataList)
+        );
+        // console.log(
+        //   "State after requesting get data: " +
+        //     JSON.stringify(getState().Server)
+        // );
+      }
+    } catch (error) {
+      console.log("An error occurred in server action ", error);
+    } finally {
+      //  wherether call API success or fail, inform store fetching status request is done
+      dispatch(requestGetDataFetch(false));
+      // console.log(
+      //   "State after finish requesting fetch: " + JSON.stringify(getState().Server)
+      // );
+    }
   };
 };
 
-const CreateNewServerActionCreater = server => {
-  server = {
-    ...server,
-    active: true,
-    company_id: 1,
-    create_date: "2017-12-09T01:30",
-    update_date: "2017-12-09T01:30"
-  };
-  return {
-    type: ServerActionTypes.CREATE_NEW_SERVER,
-    payload: server
-  };
-};
-
-const CreateNewServer = server => {
+//  Update Server Status 
+const updateServerStatus = (
+  id = 0,
+  active = true,
+) => {
   return async (dispatch, getState) => {
-    await dispatch(CreateNewServerActionCreater(server));
-  };
-};
+    try {
+      //  inform store we are going to fetch some data
+      await dispatch(requestGetDataFetch(true));
 
-const Count = () => {
-  alert("count");
+      // if fetching status of Server component is true
+      if (getState().Server.fetchStatus) {
+        console.log("State: " + JSON.stringify(getState().Login.loginInfor.token));
+
+        //  update server detail
+        let updateModel = {
+          id: id,
+          active: active,
+          change_status: true,
+          server_detail: null
+        }
+        // let updateModel = {
+        //   "client_id": 0,
+        //   "service_id": 0
+        // }
+
+        const fetchRequest = await fetch(
+          `${APISettings.BASE_API_URL}/${APISettings.SERVER_API_URL}`, {
+            mode: "cors",
+            method: "patch",
+            headers: {
+              Accept: 'application/json',
+              "Content-Type": "application/json",
+              Authorization: "bearer " + getState().Login.loginInfor.token,
+              // "Access-Control-Allow-Origin": "*"
+            },
+            body: JSON.stringify(updateModel)
+          }
+        );
+        console.log(
+          "Response data after requesting get data: " +
+          JSON.stringify(fetchRequest)
+        );
+
+        // the fetch() API only rejects a promise when
+        //  a “network error is encountered, although this usually means permissions issues or similar.”
+        //  =>  response have ok for other invalid HTTP response
+        if (!fetchRequest.ok) {
+          console.log(JSON.stringify(fetchRequest));
+          throw Error(fetchRequest.statusText);
+        }
+        if (fetchRequest.status === 401) {
+          localStorage.clear();
+          throw Error(fetchRequest.statusText);
+        }
+        // const fetchGetRequest = await fetch(
+        //   `${APISettings.BASE_API_URL}/${APISettings.SERVER_API_URL}/?ref_fields=server_detail%2Crepo%2Cserver_account`, {
+        //     method: "get",
+        //     headers: {
+        //       "Content-Type": "application/json",
+        //       Authorization: "bearer " + getState().Login.loginInfor.token
+        //     }
+        //   }
+        // );
+
+        // // the fetch() API only rejects a promise when
+        // //  a “network error is encountered, although this usually means permissions issues or similar.”
+        // //  =>  response have ok for other invalid HTTP response
+        // if (!fetchGetRequest.ok) {
+        //   throw Error(fetchGetRequest.statusText);
+        // }
+        // if (fetchGetRequest.status === 401) {
+        //   localStorage.clear();
+        //   throw Error(fetchGetRequest.statusText);
+        // }
+        // //  response data
+        // const getResult = await fetchGetRequest.json();
+        // // console.log(
+        // //   "Data after requesting get data: " + JSON.stringify(result)
+        // // );
+
+        // //  store payload data into store
+        // await dispatch(storeServerListActionCreator(getResult));
+
+        // //  store servers regist as server master
+        // await dispatch(
+        //   storeServerMasterListActionCreator(getState().Server.currentDataList)
+        // );
+
+      }
+    } catch (error) {
+      console.log("An error occurred in server action ", error);
+    } finally {
+      //  wherether call API success or fail, inform store fetching status request is done
+      dispatch(requestGetDataFetch(false));
+      //  recall getting server list after update
+    }
+  };
+}
+
+//  Update Server Detail 
+const updateServerDetail = (
+  server_detail_id = 0,
+  id = 0,
+  disk1 = "",
+  disk2 = "",
+  disk3 = "",
+  volume_disk1 = "",
+  volume_disk2 = "",
+  volume_disk3 = ""
+) => {
   return async (dispatch, getState) => {
-    await dispatch({type: ServerActionTypes.COUNT});
+    try {
+      //  inform store we are going to fetch some data
+      await dispatch(requestGetDataFetch(true));
+
+      // if fetching status of Server component is true
+      if (getState().Server.fetchStatus) {
+        console.log("State: " + JSON.stringify(getState().Login.loginInfor.token));
+
+        //  update server detail
+        let updateModel = {
+          id: id,
+          active: true,
+          change_status: false,
+          server_detail: {
+            id: server_detail_id,
+            server_id: id,
+            disk1: disk1,
+            volume_disk1: volume_disk1,
+            disk2: disk2,
+            volume_disk2: volume_disk2,
+            disk3: disk3,
+            volume_disk3: volume_disk3,
+            active: true
+          }
+        }
+        const fetchRequest = await fetch(
+          `${APISettings.BASE_API_URL}/${APISettings.SERVER_API_URL}`, {
+            method: "patch",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "bearer " + getState().Login.loginInfor.token
+            },
+            body: JSON.stringify(updateModel)
+          }
+        );
+        console.log(
+          "Response data after requesting get data: " +
+          JSON.stringify(fetchRequest)
+        );
+
+        // the fetch() API only rejects a promise when
+        //  a “network error is encountered, although this usually means permissions issues or similar.”
+        //  =>  response have ok for other invalid HTTP response
+        if (!fetchRequest.ok) {
+          throw Error(fetchRequest.statusText);
+        }
+        if (fetchRequest.status === 401) {
+          localStorage.clear();
+          throw Error(fetchRequest.statusText);
+        }
+      }
+    } catch (error) {
+      console.log("An error occurred in server action ", error);
+    } finally {
+      //  wherether call API success or fail, inform store fetching status request is done
+      dispatch(requestGetDataFetch(false));
+    }
+  };
+}
+
+//  Update Server Account 
+const updateServerAccount = ({
+  server_id = 0,
+  username = "",
+  password = ""
+}) => {
+  return async (dispatch, getState) => {
+    try {
+      //  inform store we are going to fetch some data
+      await dispatch(requestGetDataFetch(true));
+
+      // if fetching status of Server component is true
+      if (getState().Server.fetchStatus) {
+        console.log("State: " + JSON.stringify(getState().Login.loginInfor.token));
+
+        //  update server account
+        let updateModel = {
+          "server_id": server_id,
+          "username": username,
+          "password": password
+        }
+        const fetchRequest = await fetch(
+          `${APISettings.BASE_API_URL}/${APISettings.SERVER_ACCOUNT_URL}`, {
+            method: "put",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "bearer " + getState().Login.loginInfor.token
+            },
+            body: JSON.stringify(updateModel)
+          }
+        );
+        console.log(
+          "Response data after requesting get data: " +
+          JSON.stringify(fetchRequest)
+        );
+
+        // the fetch() API only rejects a promise when
+        //  a “network error is encountered, although this usually means permissions issues or similar.”
+        //  =>  response have ok for other invalid HTTP response
+        if (!fetchRequest.ok) {
+          throw Error(fetchRequest.statusText);
+        }
+        if (fetchRequest.status === 401) {
+          localStorage.clear();
+          throw Error(fetchRequest.statusText);
+        }
+      }
+    } catch (error) {
+      console.log("An error occurred in server action ", error);
+    } finally {
+      //  wherether call API success or fail, inform store fetching status request is done
+      dispatch(requestGetDataFetch(false));
+    }
   };
 }
 
 export default {
-  getData: GetServerList,
-  createNew: CreateNewServer,
-  toggleCreateModal: ToggleCreateServerModal,
-  toggleInformationModal: ToggleInformationModal,
-  storeCurrentSelectedServer: StoreCurrentSelectedServer,
-  count: Count
+  getData: getServerList,
+  createNewServer: createNewServer,
+  toggleCreateModal: toggleCreateServerModal,
+  toggleInformationModal: toggleServerInformationModal,
+  storeCurrentSelectedServer: storeCurrentSelectedServer,
+  updateServerGeneralInformation: updateServerGeneralInformation,
+  updateServerStatus: updateServerStatus,
+  updateServerDetail: updateServerDetail,
+  updateServerAccount: updateServerAccount,
+
 };

@@ -18,6 +18,22 @@ import {
 } from "reactstrap";
 import LayoutSearchForm from "./../Layout/LayoutSearchForm.jsx";
 import LayoutAvatar from "./../Layout/LayoutAvatar.jsx";
+
+//  redux component
+//  set up redux
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import Action from "../../../redux/Action/index.js";
+
+//  compose function:
+//  - (...fns): array all function need to compose
+//  - x: collection / input value
+//  - reduceRight: array loop function, from right to left (last -> last - 1 -> last - 2 -> ...)
+//  =>  (y, f) => f(y), x === (previousValue, currentFunction) => currentFunction(previousValue), x
+//  =>  take last function in collectionFunction fns, use innitial value x, return value (y)
+//  =>  [a, b, c] => reduceRight((y, f) => f(y), x) === a(b(c))
+const compose = (...fns) => x => fns.reduceRight((y, f) => f(y), x);
+
 var ps;
 
 class SidebarResponsive extends React.Component {
@@ -47,19 +63,24 @@ class SidebarResponsive extends React.Component {
   // creates the links that appear in the left menu / SidebarResponsive
   createLinks = routes => {
     return routes.map((prop, key) => {
-      // console.log(`SidebarResponsive: ${JSON.stringify(prop)}` )
       return (
-        <NavItem key={key}>
-          <NavLink
-            to={prop.layout + prop.path}
-            tag={NavLinkRRD}
-            onClick={this.closeCollapse}
-            activeClassName="active"
-          >
-            <i className={prop.icon} />
-            {prop.name}
-          </NavLink>
-        </NavItem>
+        
+        this.props.role == 1 && (prop.role).includes("/admin") ?
+        
+          <NavItem key={key}>
+            <NavLink
+              to={prop.layout + prop.path}
+              tag={NavLinkRRD}
+              onClick={this.closeCollapse}
+              activeClassName="active"
+            >
+              <i className={prop.icon} />
+              {/* <h4 className=" text-white">{prop.name}</h4> */}
+              <font color={'#FFA07A'}>{prop.name}</font>
+            </NavLink>
+          </NavItem>
+          : null
+
       );
     });
   };
@@ -78,8 +99,10 @@ class SidebarResponsive extends React.Component {
       };
     }
     return (
+
       <Navbar
-        className="navbar-vertical fixed-left navbar-light bg-orange"
+        style={{ backgroundColor: '#800000' }}
+        className="navbar-vertical fixed-left navbar-light "
         expand="md"
         id="sidenav-main"
       >
@@ -158,10 +181,10 @@ class SidebarResponsive extends React.Component {
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav> */}
-          <LayoutAvatar 
+          <LayoutAvatar
             navProps="align-items-center d-md-none"
           />
-           {/* <Nav className="align-items-center d-md-none">
+          {/* <Nav className="align-items-center d-md-none">
             <UncontrolledDropdown nav>
               <DropdownToggle nav className="nav-link-icon">
                 <i className="ni ni-bell-55" />
@@ -233,10 +256,10 @@ class SidebarResponsive extends React.Component {
                         <img alt={logo.imgAlt} src={logo.imgSrc} />
                       </Link>
                     ) : (
-                      <a href={logo.outterLink}>
-                        <img alt={logo.imgAlt} src={logo.imgSrc} />
-                      </a>
-                    )}
+                        <a href={logo.outterLink}>
+                          <img alt={logo.imgAlt} src={logo.imgSrc} />
+                        </a>
+                      )}
                   </Col>
                 ) : null}
                 <Col className="collapse-close" xs="6">
@@ -252,11 +275,11 @@ class SidebarResponsive extends React.Component {
               </Row>
             </div>
             {/* Form */}
-            <LayoutSearchForm
+            {/* <LayoutSearchForm
               formProps="mt-4 mb-3 d-md-none"
               inputGroupProps="input-group-rounded input-group-merge"
               inputProps="form-control-rounded form-control-prepended text-dark"
-            />
+            /> */}
             {/* <Form className="mt-4 mb-3 d-md-none">
               <InputGroup className="input-group-rounded input-group-merge">
                 <Input
@@ -275,9 +298,13 @@ class SidebarResponsive extends React.Component {
 
             <hr className="my-3" />
             {/* Navigation */}
-            <Nav navbar>{this.createLinks(routes)}</Nav>
-            {/* Divider */}
-            <hr className="my-3" />
+            <hr style={{ width: '80%' }, { border: "1px solid white" }} />
+            <Nav navbar>{this.createLinks(routes.filter(route => route.section === "dynamic"))}</Nav>
+            <hr style={{ width: '80%' }, { border: "1px solid white" }} />
+            <Nav navbar>{this.createLinks(routes.filter(route => route.section === "static"))}</Nav>
+            <hr style={{ width: '80%' }, { border: "1px solid white" }} />
+            <Nav navbar>{this.createLinks(routes.filter(route => route.section === "profile"))}</Nav>
+            <hr style={{ width: '80%' }, { border: "1px solid white" }} />
 
             {/* <h6 className="navbar-heading text-muted">Documentation</h6>
             
@@ -329,4 +356,21 @@ SidebarResponsive.propTypes = {
   })
 };
 
-export default SidebarResponsive;
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  dispatch
+});
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    role: state.Login.loginInfor.role,
+    own: ownProps
+  };
+};
+
+//  compose all redux HOC
+const enhance = compose(
+  withRouter,
+  connect(mapStateToProps, mapDispatchToProps, null)
+);
+
+export default enhance(SidebarResponsive);

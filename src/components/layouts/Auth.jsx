@@ -4,6 +4,8 @@ import { Route, Switch } from "react-router-dom";
 // import { Container, Row, Col } from "reactstrap";
 import { Container, Row } from "reactstrap";
 
+//  redux connect
+import { withRouter } from "react-router-dom";
 // core components
 import AuthNavbar from "./Navbars/AuthNavbar.jsx";
 import AuthFooter from "./Footers/AuthFooter.jsx";
@@ -23,7 +25,7 @@ class Auth extends React.Component {
         return (
           <Route
             path={prop.layout + prop.path}
-            component={prop.component}
+            component={withRouter(prop.component)}
             key={key}
           />
         );

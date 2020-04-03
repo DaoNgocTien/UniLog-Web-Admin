@@ -11,15 +11,15 @@ class Footer extends React.Component {
       <footer className="footer">
         <Row className="align-items-center justify-content-xl-between">
           <Col xl="6">
-            <div className="copyright text-center text-xl-left text-muted">
-              © 2018{" "}
+            <div className="copyright text-cente4r text-xl-left text-muted">
+    <h4 color={'#800000'}>© 2018{" "}</h4>
               <a
                 className="font-weight-bold ml-1"
                 href="https://www.creative-tim.com?ref=adr-admin-footer"
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                Creative Tim
+                 <h4 color={'#800000'}>Creative Tim</h4>
               </a>
             </div>
           </Col>
@@ -32,7 +32,7 @@ class Footer extends React.Component {
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  Creative Tim
+                  <h4 color={'#800000'}>Creative Tim</h4> 
                 </NavLink>
               </NavItem>
 
@@ -42,7 +42,7 @@ class Footer extends React.Component {
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  About Us
+                   <h4 color={'#800000'}>About Us</h4> 
                 </NavLink>
               </NavItem>
 
@@ -52,7 +52,7 @@ class Footer extends React.Component {
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  Blog
+                   <h4 color={'#800000'}>Blog</h4> 
                 </NavLink>
               </NavItem>
 
@@ -62,7 +62,7 @@ class Footer extends React.Component {
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  MIT License
+                 <h4 color={'#800000'}>MIT License</h4> 
                 </NavLink>
               </NavItem>
             </Nav>

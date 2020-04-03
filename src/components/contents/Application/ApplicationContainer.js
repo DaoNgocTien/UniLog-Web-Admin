@@ -8,7 +8,7 @@ import { withRouter } from "react-router-dom";
 import Action from "../../../redux/Action/index.js";
 
 //  presentation component
-import ServerPresentation from "./ApplicationPresentation.jsx";
+import Application from "./Application.jsx";
 const uuidv1 = require("uuid/v1");
 //  compose function:
 //  - (...fns): array all function need to compose
@@ -30,23 +30,21 @@ const propsDefault = {
   data: []
 };
 
-class ServerContainer extends Component {
+class ApplicationContainer extends Component {
   static propTypes = propsProTypes;
   static defaultProps = propsDefault;
-  state = {
-    tableData: []
-  };
+  // state = {
+  //   tableData: []
+  // };
 
   componentDidMount() {
     //console.log("ServerContainer componentDidMount: ", this.props);
-    this.props.applicationTest();
-    this.setState({
-      tableData: this.props.data
-    })
+    this.props.getData();
   }
 
+
   // componentDidUpdate(prevProps, prevState) {
-  //   console.log("ServerContainer componentDidUpdate ");
+  //   console.log("ApplicationContainer componentDidUpdate ");
   // }
 
   // shouldComponentUpdate(nextProps) {
@@ -67,7 +65,7 @@ class ServerContainer extends Component {
       <>
         {data.map((value, key) => {
           return (
-            <ServerPresentation
+            <Application
               index={key}
               key={uuidv1()}
               data={value}
@@ -93,22 +91,16 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     event.preventDefault();
     if (id) {
       //console.log(id);
-      dispatch(Action.Server.storeCurrentSelectedServer(id));
-      dispatch(Action.Server.toggleInformationModal);
+      dispatch(Action.Application.storeCurrentSelectedApplication(id));
+      dispatch(Action.Application.toggleInformationModal);
     } else {
       alert("Invalid ID ", id);
     }
   },
-  update: (event, id) => {
-    event.preventDefault();
-    if (id) {
-      //     console.log(ownProps);
-      //   let serverDetail = this.props.serverList.find(server => server.id == id);
-      //   if (serverDetail) {
-      // dispatch(Action.checkLogin(email, password));
-      alert("Update \n" + id);
-      //   }
-    }
+  getData: async () => {
+    await dispatch(Action.Application.getData());
+    await dispatch(Action.System.getData());
+    await dispatch(Action.Server.getData());
   },
   disabled: (event, id) => {
     event.preventDefault();
@@ -121,9 +113,6 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
       //   }
     }
   },
-  applicationTest: () => {
-    dispatch(Action.Application.applicationTest());
-  },
 
   dispatch
 });
@@ -134,4 +123,4 @@ const enhance = compose(
   connect(mapStateToProps, mapDispatchToProps, null)
 );
 
-export default enhance(ServerContainer);
+export default enhance(ApplicationContainer);

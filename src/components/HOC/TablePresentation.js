@@ -26,6 +26,7 @@ import {
 // import NewServerModal from "./../contents/Server/NewServerModal.js";
 // core components
 import Header from "./../layouts/Headers/Header.jsx";
+import LogSelecttion from "./../contents/Log/LogSelection";
 const uuidv1 = require("uuid/v1");
 
 const TablePresentation = props => {
@@ -37,7 +38,8 @@ const TablePresentation = props => {
     RegistrationModal,
     DetailModal,
     header,
-    toggleCreateModal
+    toggleCreateModal,
+    name
   } = props;
   // console.log("TablePresentation ", JSON.stringify(props));
   // const closeBtn = (
@@ -61,13 +63,14 @@ const TablePresentation = props => {
                       OVERVIEW
                     </h4>
                     <h2 className="text-dark mb-0">
-                      <span className="d-none d-md-block">SERVERS</span>
+                      <span className="d-none d-md-block">{name}</span>
                       <span className="d-md-none">S</span>
                     </h2>
                   </div>
                   <div className="col">
+                  {name === "Log Reports" ? <LogSelecttion /> : 
                     <Nav className="justify-content-end" pills>
-                      <NavItem>
+                      {/* <NavItem>
                         <NavLink
                           className={`classnames("py-2 px-3", {
                                 active: this.state.activeNav === 1
@@ -78,7 +81,8 @@ const TablePresentation = props => {
                           <span className="d-none d-md-block">By Date</span>
                           <span className="d-md-none">D</span>
                         </NavLink>
-                      </NavItem>
+                      </NavItem> */}
+                     
                       <NavItem>
                         <NavLink
                           className={`classnames("py-2 px-3", {
@@ -97,7 +101,7 @@ const TablePresentation = props => {
                           <DetailModal />
                         </div>
                       </NavItem>
-                    </Nav>
+                    </Nav>}
                   </div>
                 </Row>
               </CardHeader>
@@ -112,7 +116,7 @@ const TablePresentation = props => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  {/* <tr>
                     <th scope="row">
                       <Media className="align-items-center">
                         <a
@@ -139,7 +143,7 @@ const TablePresentation = props => {
                         pending
                       </Badge>
                     </td> */}
-                    <td>
+                    {/*<td>
                       <div className="avatar-group">
                         <a
                           className="avatar avatar-sm"
@@ -261,7 +265,7 @@ const TablePresentation = props => {
                         </DropdownMenu>
                       </UncontrolledDropdown>
                     </td>
-                  </tr>
+                  </tr> */}
                   {/* data is an array */}
                   {/* forEach will be slower then for ... of (item) or for .... in (index) */}
                   {/* {data.forEach((value, key) => {

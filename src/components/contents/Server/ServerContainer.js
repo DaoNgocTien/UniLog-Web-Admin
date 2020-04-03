@@ -8,7 +8,7 @@ import { withRouter } from "react-router-dom";
 import Action from "./../../../redux/Action/index.js";
 
 //  presentation component
-import ServerPresentation from "./ServerPresentation.jsx";
+import Server from "./Server.jsx";
 const uuidv1 = require("uuid/v1");
 //  compose function:
 //  - (...fns): array all function need to compose
@@ -39,7 +39,7 @@ class ServerContainer extends Component {
 
   componentDidMount() {
     //console.log("ServerContainer componentDidMount: ", this.props);
-    this.props.applicationTest();
+    this.props.getData();
     this.setState({
       tableData: this.props.data
     })
@@ -67,7 +67,7 @@ class ServerContainer extends Component {
       <>
         {data.map((value, key) => {
           return (
-            <ServerPresentation
+            <Server
               index={key}
               key={uuidv1()}
               data={value}
@@ -92,37 +92,36 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   toggleInformationModal: (event, id) => {
     event.preventDefault();
     if (id) {
-      //console.log(id);
       dispatch(Action.Server.storeCurrentSelectedServer(id));
       dispatch(Action.Server.toggleInformationModal);
-    } else {
-      alert("Invalid ID ", id);
-    }
+    } 
   },
-  update: (event, id) => {
+  // update: async (event, id) => {
+  //   event.preventDefault();
+  //   if (id) {
+  //     //     console.log(ownProps);
+  //     //   let serverDetail = this.props.serverList.find(server => server.id == id);
+  //     //   if (serverDetail) {
+  //     // dispatch(Action.checkLogin(email, password));
+  //     //   }
+  //   }
+  // },
+  disabled: async (
+    event,
+    id,
+    active,
+  ) => {
     event.preventDefault();
     if (id) {
-      //     console.log(ownProps);
-      //   let serverDetail = this.props.serverList.find(server => server.id == id);
-      //   if (serverDetail) {
-      // dispatch(Action.checkLogin(email, password));
-      alert("Update \n" + id);
-      //   }
+      await dispatch(Action.Server.updateServerStatus(
+        id,
+        active
+      ));
+       dispatch(Action.Server.getData());
     }
   },
-  disabled: (event, id) => {
-    event.preventDefault();
-    if (id) {
-      // console.log(ownProps);
-      //   let serverDetail = this.props.serverList.find(server => server.id == id);
-      //   if (serverDetail) {
-      // dispatch(Action.checkLogin(email, password));
-      alert("Disabled \n" + id);
-      //   }
-    }
-  },
-  applicationTest: () => {
-    dispatch(Action.Application.applicationTest());
+  getData: async () => {
+    await dispatch(Action.Server.getData());
   },
 
   dispatch

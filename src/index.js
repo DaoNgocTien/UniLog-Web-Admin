@@ -6,6 +6,7 @@ import ReactDOM from "react-dom";
 import "assets/vendor/nucleo/css/nucleo.css";
 import "assets/vendor/@fortawesome/fontawesome-free/css/all.min.css";
 import "assets/scss/argon-dashboard-react.scss";
+import "assets/css/style.css";
 import App from "./App";
 // import AdminLayout from "layouts/Admin.jsx";
 // import AuthLayout from "layouts/Auth.jsx";

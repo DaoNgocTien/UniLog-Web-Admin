@@ -7,7 +7,7 @@ import {
   InputGroupText,
   Navbar,
 } from "reactstrap";
-import LayoutSearchForm from "./../Layout/LayoutSearchForm.jsx";
+// import LayoutSearchForm from "./../Layout/LayoutSearchForm.jsx";
 import LayoutAvatar from "./../Layout/LayoutAvatar.jsx";
 export default class NavBar extends Component {
   state = {};
@@ -16,28 +16,28 @@ export default class NavBar extends Component {
     return (
       <>
         <Navbar
-          className="navbar-top navbar-dark bg-orange"
+         style={{ backgroundColor: '#800000' }}
+          className="navbar-top navbar-dark "
           expand="md"
           id="navbar-main"
         >
           <Container fluid>
             <Form className="navbar-search form-inline mr-3 d-none d-md-flex ">
-              <InputGroupText>
+              {/* <InputGroupText>
                 <i className="fa fa-bars" aria-hidden="true"></i>
-              </InputGroupText>
+              </InputGroupText> */}
             </Form>
             <Link
               className="h4 ml-3 mb-0 text-white text-uppercase d-none d-lg-inline-block"
               to="/"
             >
               Wisky
-              {/* {this.props.brandText} */}
             </Link>
-            <LayoutSearchForm
+            {/* <LayoutSearchForm
               formProps="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto"
               inputGroupProps="input-group-alternative"
               inputProps="form-control-rounded form-control-prepended text-white"
-            />
+            /> */}
             {/* <Form className="">
               <FormGroup className="mb-0">
                 <InputGroup className="">

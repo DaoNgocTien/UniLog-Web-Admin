@@ -1,26 +1,43 @@
-/*!
-
-=========================================================
-* Argon Dashboard React - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-import React from "react";
+import React, {
+  Component
+} from "react";
+//  set up proptype
+import PropTypes from "prop-types";
+//  redux component
+//  set up redux
+import {
+  connect
+} from "react-redux";
+import {
+  withRouter
+} from "react-router-dom";
+import Action from "../../../redux/Action/index.js";
 
 // reactstrap components
 import { Button, Container, Row, Col } from "reactstrap";
+import PasswordChangingModalContainer from "./../../contents/Profile/PasswordChangingModalContainer.js";
+// const uuidv1 = require("uuid/v1");
+//  compose function:
+//  - (...fns): array all function need to compose
+//  - x: collection / input value
+//  - reduceRight: array loop function, from right to left (last -> last - 1 -> last - 2 -> ...)
+//  =>  (y, f) => f(y), x === (previousValue, currentFunction) => currentFunction(previousValue), x
+//  =>  take last function in collectionFunction fns, use innitial value x, return value (y)
+//  =>  [a, b, c] => reduceRight((y, f) => f(y), x) === a(b(c))
+const compose = (...fns) => x => fns.reduceRight((y, f) => f(y), x);
 
-class UserHeader extends React.Component {
+// //  propType
+// const propsProTypes = {
+//   index: PropTypes.number,
+//   data: PropTypes.array
+// };
+
+// const propsDefault = {
+//   index: 1,
+//   data: []
+// };
+
+class UserHeader extends Component {
   render() {
     return (
       <>
@@ -45,20 +62,51 @@ class UserHeader extends React.Component {
                   This is your profile page. You can see the progress you've
                   made with your work and manage your projects or assigned tasks
                 </p>
+                {/* <Button
+                  color="info"
+                  href="#pablo"
+                  onClick={e => this.props.getData()}
+                >
+                  Edit profile
+                </Button> */}
                 <Button
                   color="info"
                   href="#pablo"
-                  onClick={e => e.preventDefault()}
+                  onClick={e => (this.props.toggleInformationModal())}
                 >
-                  Edit profile
-                </Button>
+                  Change password
+                      </Button>
               </Col>
             </Row>
+            
           </Container>
         </div>
       </>
     );
   }
 }
+const mapStateToProps = (state, ownProps) => {
+  return {
+    data: state.Employee.currentDataList,
+    own: ownProps
+  };
+};
 
-export default UserHeader;
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  getData: async () => {
+    await dispatch(Action.Profile.toggleProfileComponent());
+  },
+  toggleInformationModal: () => {
+    dispatch(Action.Profile.toggleInformationModal);
+  },
+
+  dispatch
+});
+
+//  compose all redux HOC
+const enhance = compose(
+  withRouter,
+  connect(mapStateToProps, mapDispatchToProps, null)
+);
+
+export default enhance(UserHeader);
