@@ -62,19 +62,34 @@ class UserHeader extends Component {
                   This is your profile page. You can see the progress you've
                   made with your work and manage your projects or assigned tasks
                 </p>
-                {/* <Button
+                <Button
                   color="info"
                   href="#pablo"
                   onClick={e => this.props.getData()}
                 >
-                  Edit profile
-                </Button> */}
+                 <img
+                        alt="..."
+                        className="rounded-circle"
+                        src={require("assets/img/theme/mobile_download-512.png")}
+                        height={50}
+                        width={50}
+                      />
+                 Try Mobile Version
+                </Button>
                 <Button
                   color="info"
                   href="#pablo"
                   onClick={e => (this.props.toggleInformationModal())}
+                  
                 >
-                  Change password
+                   <img
+                        alt="..."
+                        className="rounded-circle"
+                        src={require("assets/img/theme/Password.png")}
+                        height={50}
+                        width={50}
+                      />
+                     {"     "}Change Password
                       </Button>
               </Col>
             </Row>

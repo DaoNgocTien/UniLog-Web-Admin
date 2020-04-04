@@ -198,9 +198,15 @@ const deleteLog = (id = 0) => {
     };
 };
 
+const toggleCreateModal = dispatch => {
+    return dispatch({
+      type: LogActionTypes.TOGGLE_CREATE_LOG_MODAL
+    });
+  };
+
 export default {
     getData: getLogList,
     createNewLog: createNewLog,
     deleteLog: deleteLog,
-
+    toggleCreateModal: toggleCreateModal,
 };

@@ -29,6 +29,7 @@ import ApplicationInstanceRegistrationModalContainer from "./components/contents
 import ApplicationInstanceInformationModalContainer from "./components/contents/ApplicationInstance/ApplicationInstanceInformationModalContainer.js";
 //  log
 import LogContainer from "./components/contents/Log/LogContainer.js";
+import LogRegistrationModal from "./components/contents/Log/LogRegistrationModal";
 //  all auto action in the 1st time component active
 import Action from "./redux/Action/index.js";
 
@@ -81,8 +82,8 @@ export default [{
       "STATUS",
       "ACTION"
     ],
-    RegistrationModal: ServerRegistrationModalContainer,
-    DetailModal: ServerInformationModalContainer,
+    RegistrationModal: LogRegistrationModal,
+    DetailModal: LogRegistrationModal,
 
     section: "dynamic",
 

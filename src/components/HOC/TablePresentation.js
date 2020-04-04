@@ -68,7 +68,7 @@ const TablePresentation = props => {
                     </h2>
                   </div>
                   <div className="col">
-                  {name === "Log Reports" ? <LogSelecttion /> : 
+                  {name === "Log Reports" ? <LogSelecttion /> : null}
                     <Nav className="justify-content-end" pills>
                       {/* <NavItem>
                         <NavLink
@@ -101,7 +101,7 @@ const TablePresentation = props => {
                           <DetailModal />
                         </div>
                       </NavItem>
-                    </Nav>}
+                    </Nav>
                   </div>
                 </Row>
               </CardHeader>

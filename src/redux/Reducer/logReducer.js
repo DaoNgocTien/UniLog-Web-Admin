@@ -9,12 +9,14 @@ import {
 let {
     REQUEST_FETCH_API,
     STORE_LOG_LIST,
+    TOGGLE_CREATE_LOG_MODAL
 } = LogActionTypes;
 
 //  initial state
 const initialState = {
     fetchStatus: false,
     currentDataList: [],
+    toggleCreateModal: false,
 };
 
 const dictionary = {
@@ -32,7 +34,16 @@ const dictionary = {
             ...state,
             currentDataList: payload
         } : state;
-    }
+    },
+
+    [TOGGLE_CREATE_LOG_MODAL]: state => {
+        //console.log("ToggleInformation " + state);
+    
+        return {
+          ...state,
+          toggleCreateModal: !state.toggleCreateModal
+        };
+      },
 
 }
 
