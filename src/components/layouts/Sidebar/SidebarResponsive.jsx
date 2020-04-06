@@ -63,25 +63,55 @@ class SidebarResponsive extends React.Component {
   // creates the links that appear in the left menu / SidebarResponsive
   createLinks = routes => {
     return routes.map((prop, key) => {
-      return (
-        
-        this.props.role == 1 && (prop.role).includes("/admin") ?
-        
-          <NavItem key={key}>
-            <NavLink
-              to={prop.layout + prop.path}
-              tag={NavLinkRRD}
-              onClick={this.closeCollapse}
-              activeClassName="active"
-            >
-              <i className={prop.icon} />
-              {/* <h4 className=" text-white">{prop.name}</h4> */}
-              <font color={'#FFA07A'}>{prop.name}</font>
-            </NavLink>
-          </NavItem>
-          : null
-
-      );
+      if(prop.path !== "/register" &&  prop.path !== "/password-token" &&  prop.path !== "/password-reset"  ){
+        return (
+          // role: "admin,manager,employee,guest",
+          
+          (this.props.role == 1 && (prop.role).includes("admin")) || this.props.role == 5 ?
+  
+            <NavItem key={key}>
+              <NavLink
+                to={prop.layout + prop.path}
+                tag={NavLinkRRD}
+                onClick={this.closeCollapse}
+                activeClassName="active"
+              >
+                <i className={prop.icon} />
+                {/* <h4 className=" text-white">{prop.name}</h4> */}
+                <font color={'#FFA07A'}>{prop.name}</font>
+              </NavLink>
+            </NavItem>
+            :
+            this.props.role == 2 && (prop.role).includes("manager") ?
+              <NavItem key={key}>
+                <NavLink
+                  to={prop.layout + prop.path}
+                  tag={NavLinkRRD}
+                  onClick={this.closeCollapse}
+                  activeClassName="active"
+                >
+                  <i className={prop.icon} />
+                  {/* <h4 className=" text-white">{prop.name}</h4> */}
+                  <font color={'#FFA07A'}>{prop.name}</font>
+                </NavLink>
+              </NavItem>
+              :
+              (this.props.role == 3 || this.props.role == 4) && (prop.role).includes("employee") ?
+                <NavItem key={key}>
+                  <NavLink
+                    to={prop.layout + prop.path}
+                    tag={NavLinkRRD}
+                    onClick={this.closeCollapse}
+                    activeClassName="active"
+                  >
+                    <i className={prop.icon} />
+                    {/* <h4 className=" text-white">{prop.name}</h4> */}
+                    <font color={'#FFA07A'}>{prop.name}</font>
+                  </NavLink>
+                </NavItem> : null
+        );
+      }
+      
     });
   };
   render() {

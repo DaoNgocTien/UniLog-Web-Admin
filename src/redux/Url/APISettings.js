@@ -2,7 +2,7 @@ export default {
   //HOST API
   // BASE_API_URL: "http://apiunilognvs.unicode.edu.vn",
   // BASE_API_URL: "http://localhost:51635",
-   BASE_API_URL: "http://ccfaef87.ngrok.io",
+   BASE_API_URL: "http://2d3b7f8b.ngrok.io",
 
   // LOGIN_API_URL :  "api/login",
   LOGIN_API_URL: "api/accounts/login",

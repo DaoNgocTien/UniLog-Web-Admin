@@ -41,7 +41,7 @@ export default [{
     component: Index,
     layout: "/admin",
     type: "",
-    role: "/admin",
+    role: "admin,manager,employee,guest",
     section: "dynamic"
   },
   {
@@ -62,7 +62,7 @@ export default [{
     ],
     RegistrationModal: ApplicationInstanceRegistrationModalContainer,
     DetailModal: ApplicationInstanceInformationModalContainer,
-    role: "/admin",
+    role: "admin,manager,employee,guest",
     section: "dynamic",
   },
   {
@@ -87,7 +87,7 @@ export default [{
 
     section: "dynamic",
 
-    role: "/admin"
+    role: "admin,manager,employee,guest",
   },
   {
     path: "/servers",
@@ -106,7 +106,7 @@ export default [{
     ],
     RegistrationModal: ServerRegistrationModalContainer,
     DetailModal: ServerInformationModalContainer,
-    role: "/admin",
+    role: "admin,guest",
     section: "static",
   },
   {
@@ -127,7 +127,7 @@ export default [{
     ],
     RegistrationModal: ApplicationRegistrationModalContainer,
     DetailModal: ApplicationInformationModalContainer,
-    role: "/admin",
+    role: "admin,manager,guest",
     section: "static",
   },
   {
@@ -149,7 +149,7 @@ export default [{
     RegistrationModal: EmployeeRegistrationModalContainer,
     DetailModal: EmployeeInformationModalContainer,
     isEndRoute: true,
-    role: "/admin",
+    role: "admin,manager,guest",
     section: "static",
   },
   {
@@ -159,7 +159,7 @@ export default [{
     component: ProfileContainer,
     layout: "/admin",
     type: "",
-    role: "/admin",
+    role: "admin,manager,employee,guest",
     section: "profile",
   },
   // {
@@ -197,7 +197,7 @@ export default [{
     component: Login,
     layout: "/auth",
     type: "",
-    role: "/guest",
+    role: "guest",
     section: "profile",
   },
   {
@@ -207,7 +207,7 @@ export default [{
     component: Logout,
     layout: "/admin",
     type: "",
-    role: "/admin",
+    role: "admin,manager,employee,guest",
     section: "profile",
   },
   {
@@ -217,7 +217,7 @@ export default [{
     component: RegisterContainer,
     layout: "/auth",
     type: "",
-    role: "/guest",
+    role: "guest",
     section: "profile",
   },
   {
@@ -227,7 +227,7 @@ export default [{
     component: PasswordResetToken,
     layout: "/auth",
     type: "",
-    role: "/guest",
+    role: "admin,manager,employee,guest",
     section: "profile",
   },
   {
@@ -237,7 +237,7 @@ export default [{
     component: PasswordReset,
     layout: "/auth",
     type: "",
-    role: "/guest",
+    role: "admin,manager,employee,guest",
     section: "profile",
   },
 ];

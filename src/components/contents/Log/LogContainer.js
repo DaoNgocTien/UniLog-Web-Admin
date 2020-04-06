@@ -63,7 +63,7 @@ class LogContainer extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    data: state.Log.currentDataList,
+    data: state.Log.userChosenDataList,
     own: ownProps
   };
 };

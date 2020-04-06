@@ -64,7 +64,12 @@ class LogSelection extends Component {
     componentDidMount() {
         this.props.getData();
     }
-
+    
+    getChosenDataFromUser = (event) => {
+        event.preventDefault();
+        alert(event.target.value);
+        this.props.getChosenData(event.target.value);
+    }
     render() {
         let { data = [], disabled, toggleInformationModal } = this.props;
         return (
@@ -74,12 +79,13 @@ class LogSelection extends Component {
                         type="select"
                         id="appInstancerSelect"
                         name="appInstancerSelect"
+                         onChange={e => this.getChosenDataFromUser(e)}
                     >
                         <option value={0}>Choose Application Instance</option>
                         {data
                             ? data.map(appInstance => {
                                 return (
-                                    <option key={uuidv1()} value={appInstance.id}>
+                                    <option key={uuidv1()} value={appInstance.app_code}>
                                         {appInstance.name}
                                     </option>
                                 );
@@ -106,6 +112,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
             dispatch(Action.Log.storeCurrentSelectedLog(id));
             dispatch(Action.Log.toggleInformationModal);
         }
+    },
+    getChosenData: app_code => {
+        dispatch(Action.Log.getChosenData(app_code));
     },
     disabled: async (
         event,

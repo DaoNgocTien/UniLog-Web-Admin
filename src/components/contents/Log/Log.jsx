@@ -12,11 +12,19 @@ import {
 const Log = props => {
   let {
     data: {
-      id: serverId,
-      name: serverName,
-      ip_address: serverIp,
-      create_time: createDate,
-      active: status
+      id,
+      active,
+      app_code,
+      error_code_id,
+      file_name,
+      line_code,
+      log_date,
+      log_type,
+      message,
+      project_name,
+      serverity5,
+      app_code_navigation,
+      error_code
     },
     disabled,
     toggleInformationModal
@@ -24,40 +32,29 @@ const Log = props => {
   return (
     <tr>
       <th scope="row">
-        <Media className="align-items-center">
-          {/* <a
-            className="avatar rounded-circle mr-3"
-            href="#pablo"
-            onClick={e => e.preventDefault()}
-          >
-            <img alt="..." src={require("assets/img/theme/bootstrap.jpg")} />
-          </a> */}
-          <Media>
-            {/* <span className="mb-0 text-sm">{createDate.slice(0,10) + " " + createDate.slice(12,23)}</span> */}
-            <span className="mb-0 text-sm">{createDate}</span>
-          </Media>
-        </Media>
+            <span className="mb-0 text-sm">{log_date}</span>
       </th>
-      <td>{serverName}</td>
+      <td>{project_name}</td>
       <td>
         <Badge color="" className="badge-dot mr-4">
           <i className="bg-warning" />
-          {serverIp ? serverIp : "192.168.1.1"}
+          {file_name}
         </Badge>
       </td>
-      {/* <td>
-        {system_instance
-          ? "0 Instances"
-          : system_instance.length + "Instances"}
-      </td> */}
+      <td>
+        {line_code}
+      </td>
+      <td>
+        {message}
+      </td>
       <td>
         <div className="d-flex align-items-center">
-          <span className="mr-2">{status ? "Active" : "Deactive"}</span>
+          <span className="mr-2">{active ? "Active" : "Deactive"}</span>
           <div>
             <Progress
               max="100"
-              value={status ? 100 : 0}
-              barClassName={status ? "bg-info" : "bg-danger"}
+              value={active ? 100 : 0}
+              barClassName={active ? "bg-info" : "bg-danger"}
             />
           </div>
         </div>
@@ -75,17 +72,8 @@ const Log = props => {
             <i className="fas fa-ellipsis-v" />
           </DropdownToggle>
           <DropdownMenu className="dropdown-menu-arrow" right>
-            <DropdownItem
-              href="#pablo"
-              onClick={e => toggleInformationModal(e, serverId)}
-            >
-              Update
-            </DropdownItem>
-            <DropdownItem href="#pablo" onClick={e => disabled(e, serverId, !status)}>
-              {status ? "Disable" : "Active"}
-            </DropdownItem>
-            <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
-              Something else here
+            <DropdownItem href="#pablo" onClick={e => disabled(e, id, !active)}>
+              {active ? "Disable" : "Active"}
             </DropdownItem>
           </DropdownMenu>
         </UncontrolledDropdown>

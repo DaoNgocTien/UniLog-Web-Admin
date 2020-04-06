@@ -26,7 +26,7 @@ import {
 // import NewServerModal from "./../contents/Server/NewServerModal.js";
 // core components
 import Header from "./../layouts/Headers/Header.jsx";
-import LogSelecttion from "./../contents/Log/LogSelection";
+import LogSelection from "./../contents/Log/LogSelection";
 const uuidv1 = require("uuid/v1");
 
 const TablePresentation = props => {
@@ -68,7 +68,7 @@ const TablePresentation = props => {
                     </h2>
                   </div>
                   <div className="col">
-                  {name === "Log Reports" ? <LogSelecttion /> : null}
+                  {name === "Log Reports" ? <LogSelection /> : null}
                     <Nav className="justify-content-end" pills>
                       {/* <NavItem>
                         <NavLink
