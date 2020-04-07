@@ -27,7 +27,7 @@ import {
 } from "reactstrap";
 // import classnames from "classnames";
 //  pure component: memo
-import React, { memo, useState } from "react";
+import React, { memo } from "react";
 
 //  import table for repo
 import ProjectAssignmentContainer from "./ProjectAssignmentContainer.js";

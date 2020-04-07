@@ -18,13 +18,13 @@ import {
 //  pure component: memo
 import React, { memo, useState } from "react";
 
-const uuidv1 = require("uuid/v1");
+// const uuidv1 = require("uuid/v1");
 
 const ApplicationRegistrationModal = ({ fromProps }) => {
   let {
     modal,
     toggleCreateModal,
-    serverMasterList,
+    // serverMasterList,
     createNewApplication,
 
     validateName,

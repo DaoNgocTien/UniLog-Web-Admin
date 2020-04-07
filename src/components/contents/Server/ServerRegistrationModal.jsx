@@ -27,7 +27,7 @@ const ServerRegistrationModal = ({ fromProps }) => {
     validateServerName,
     validateServerTypeAndOS,
 
-    role,
+    // role,
 
 
   } = fromProps;

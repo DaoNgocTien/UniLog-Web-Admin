@@ -20,7 +20,7 @@ const {
 } = ServerActionTypes;
 
 //  Get today
-const today = new Date(Date.now());
+// const today = new Date(Date.now());
 
 //  Initial state
 const initialState = {

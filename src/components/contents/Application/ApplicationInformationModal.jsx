@@ -46,7 +46,7 @@ const ApplicationInformationModal = ({ fromProps }) => {
     validateRepoUrl,
 
 
-    role,
+    // role,
 
     application: {
       id,

@@ -133,10 +133,10 @@ class Register extends React.Component {
         <Col lg="5" md="7">
           <Card className="bg-secondary shadow border-0">
             <CardHeader className="bg-transparent pb-5">
-              <div className="text-muted text-center mt-2 mb-4">
+              {/* <div className="text-muted text-center mt-2 mb-4">
                 <small>Sign up with</small>
               </div>
-              <div className="text-center">
+              <div className="text-center"> */}
                 {/* <Button
                   className="btn-neutral btn-icon mr-4"
                   color="default"
@@ -151,11 +151,12 @@ class Register extends React.Component {
                   </span>
                   <span className="btn-inner--text">Github</span>
                 </Button> */}
-                <Button
+                {/* <Button
                   className="btn-neutral btn-icon"
                   color="default"
                   href="#pablo"
                   onClick={e => e.preventDefault()}
+                  disable={true}
                 >
                   <span className="btn-inner--icon">
                     <img
@@ -164,8 +165,8 @@ class Register extends React.Component {
                     />
                   </span>
                   <span className="btn-inner--text">Google</span>
-                </Button>
-              </div>
+                </Button> 
+              </div>*/}
             </CardHeader>
             <CardBody className="px-lg-5 py-lg-5">
               <div className="text-center text-muted mb-4">

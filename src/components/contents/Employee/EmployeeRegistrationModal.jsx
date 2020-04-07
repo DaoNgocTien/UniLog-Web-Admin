@@ -16,7 +16,7 @@ import {
 //  pure component: memo
 import React, { memo, useState } from "react";
 
-const uuidv1 = require("uuid/v1");
+// const uuidv1 = require("uuid/v1");
 
 const EmployeeRegistrationModal = ({ fromProps }) => {
   let {

@@ -76,7 +76,7 @@ const dictionary = {
     [STORE_LOG_LIST_BASE_ON_APPLICATION_INSTANCE]: (state, {
         payload = []
     }) => {
-        alert(payload.length);
+        //alertrt(payload.length);
         return {
             ...state,
             userChosenDataList: payload

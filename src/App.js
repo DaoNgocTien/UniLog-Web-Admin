@@ -18,19 +18,19 @@ import AdminLayout from "./components/layouts/Admin";
 import AuthLayout from "./components/layouts/Auth";
 
 //  set up proptype
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 //  redux component
 //  set up redux
 import {
   connect
 } from "react-redux";
-import {
-  withRouter
-} from "react-router-dom";
-import Action from "./redux/Action/index.js";
-import Logout from "./components/contents/views/Logout.jsx";
+// import {
+  // withRouter
+// } from "react-router-dom";
+// import Action from "./redux/Action/index.js";
+// import Logout from "./components/contents/views/Logout.jsx";
 
-const uuidv1 = require("uuid/v1");
+// const uuidv1 = require("uuid/v1");
 //  compose function:
 //  - (...fns): array all function need to compose
 //  - x: collection / input value

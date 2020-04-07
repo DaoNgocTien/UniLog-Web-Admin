@@ -1,16 +1,16 @@
 // reactstrap components
-import {
-    Button,
-    Card,
-    CardHeader,
-    CardBody,
-    FormGroup,
-    Form,
-    Input,
-    Container,
-    Row,
-    Col
-} from "reactstrap";
+// import {
+//     Button,
+//     Card,
+//     CardHeader,
+//     CardBody,
+//     FormGroup,
+//     Form,
+//     Input,
+//     Container,
+//     Row,
+//     Col
+// } from "reactstrap";
 // core components
 import UserHeader from "./../../layouts/Headers/UserHeader.jsx";
 import React, {
@@ -85,9 +85,9 @@ class ProfileContainer extends Component {
     }
     render() {
 
-        let {
-            toggle,
-        } = this.props;
+        // let {
+        //     toggle,
+        // } = this.props;
 
         return ( 
             <>

@@ -15,7 +15,7 @@ import Action from "./../../../redux/Action/index.js";
 
 //  presentation component
 import ProjectAssignment from "./ProjectAssignment.jsx";
-const uuidv1 = require("uuid/v1");
+// const uuidv1 = require("uuid/v1");
 //  compose function:
 //  - (...fns): array all function need to compose
 //  - x: collection / input value

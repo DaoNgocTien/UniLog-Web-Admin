@@ -10,13 +10,13 @@ import {
   Container,
   Row,
   Col,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Label,
-  FormFeedback,
-  FormText
+  // Modal,
+  // ModalHeader,
+  // ModalBody,
+  // ModalFooter,
+  // Label,
+  // FormFeedback,
+  // FormText
 } from "reactstrap";
 //  reactstrap component
 import {
@@ -26,19 +26,19 @@ import {
 //  pure component: memo
 import React, { memo, useState } from "react";
 
-const uuidv1 = require("uuid/v1");
+// const uuidv1 = require("uuid/v1");
 const Profile = ({ fromProps }) => {
   let {
     employee: {
       id,
-      active,
+      // active,
       address,
-      asp_net_user_id,
+      // asp_net_user_id,
       email,
       name,
       phone,
       role,
-      asp_net_user,
+      // asp_net_user,
       manage_project = [] },
 
     validateName,
@@ -131,7 +131,7 @@ const Profile = ({ fromProps }) => {
                 <Col className="order-lg-2" lg="3">
                   <div className="card-profile-image">
                     <a
-                    // href="#pablo" onClick={e => e.preventDefault()}
+                     href="#pablo" onClick={e => e.preventDefault()}
                     >
                       <img
                         alt="..."

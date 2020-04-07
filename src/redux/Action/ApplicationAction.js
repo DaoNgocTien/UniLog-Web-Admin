@@ -1,5 +1,5 @@
 import {
-  ApplicationActionTypes, ProfileActionTypes
+  ApplicationActionTypes
 } from "../constants";
 import fetch from "cross-fetch";
 import APISettings from "../Url/APISettings";
@@ -157,7 +157,7 @@ const createNewApplication = ({
           throw Error(fetchRequest.statusText);
         }
         //  response data
-        const result = await fetchRequest.json();
+        // const result = await fetchRequest.json();
       }
     } catch (error) {
       console.log("An error occurred in Application action ", error);

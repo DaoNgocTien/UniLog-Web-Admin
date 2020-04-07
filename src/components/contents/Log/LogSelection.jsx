@@ -7,29 +7,29 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import Action from "./../../../redux/Action/index.js";
 import {
-    Button,
-    Modal,
-    ModalHeader,
-    ModalBody,
-    ModalFooter,
-    Col,
-    Row,
-    Form,
+    // Button,
+    // Modal,
+    // ModalHeader,
+    // ModalBody,
+    // ModalFooter,
+    // Col,
+    // Row,
+    // Form,
     FormGroup,
-    Label,
+    // Label,
     Input,
-    FormFeedback,
-    FormText,
+    // FormFeedback,
+    // FormText,
   
-    //  React tab
-    TabContent,
-    TabPane,
-    Nav,
-    NavItem,
-    NavLink,
-    Card,
-    CardTitle,
-    CardText
+    // //  React tab
+    // TabContent,
+    // TabPane,
+    // Nav,
+    // NavItem,
+    // NavLink,
+    // Card,
+    // CardTitle,
+    // CardText
     //Button
   } from "reactstrap";
 //  presentation component
@@ -67,11 +67,11 @@ class LogSelection extends Component {
     
     getChosenDataFromUser = (event) => {
         event.preventDefault();
-        alert(event.target.value);
+        //alert(event.target.value);
         this.props.getChosenData(event.target.value);
     }
     render() {
-        let { data = [], disabled, toggleInformationModal } = this.props;
+        let { data = [] } = this.props;
         return (
             <>
                 <FormGroup>

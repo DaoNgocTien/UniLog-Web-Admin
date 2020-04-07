@@ -17,7 +17,7 @@ import {
   Col,
   NavLink
 } from "reactstrap";
-import { Redirect } from "react-router-dom";
+// import { Redirect } from "react-router-dom";
 
 import { connect } from "react-redux";
 import Action from "../../../redux/Action/index";
@@ -37,10 +37,10 @@ class Login extends React.Component {
         <Col lg="5" md="7">
           <Card className="bg-secondary shadow border-0">
             <CardHeader className="bg-transparent pb-5">
-              <div className="text-muted text-center mt-2 mb-3">
+              {/* <div className="text-muted text-center mt-2 mb-3">
                 <small>Sign in with</small>
               </div>
-              <div className="btn-wrapper text-center">
+              <div className="btn-wrapper text-center"> */}
                 {/* <Button
                   className="btn-neutral btn-icon"
                   color="default"
@@ -55,7 +55,7 @@ class Login extends React.Component {
                   </span>
                   <span className="btn-inner--text">Github</span>
                 </Button> */}
-                <Button
+                {/* <Button
                   className="btn-neutral btn-icon"
                   color="default"
                   href="#pablo"
@@ -69,7 +69,7 @@ class Login extends React.Component {
                   </span>
                   <span className="btn-inner--text">Google</span>
                 </Button>
-              </div>
+              </div> */}
             </CardHeader>
             <CardBody className="px-lg-5 py-lg-5">
               <div className="text-center text-muted mb-4">
@@ -142,8 +142,7 @@ class Login extends React.Component {
           <Row className="mt-3">
             <Col xs="6">
               <NavLink
-                className="text-light"
-                className="nav-link-icon"
+                className="nav-link-icon text-light"
                 to="/auth/password-token"
                 tag={Link}
               >

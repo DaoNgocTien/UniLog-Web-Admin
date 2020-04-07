@@ -1,22 +1,21 @@
 {
   "files": {
     "main.css": "/argon-dashboard-react/static/css/main.1e13e612.chunk.css",
-    "main.js": "/argon-dashboard-react/static/js/main.941fd899.chunk.js",
-    "main.js.map": "/argon-dashboard-react/static/js/main.941fd899.chunk.js.map",
+    "main.js": "/argon-dashboard-react/static/js/main.a8b87b6c.chunk.js",
+    "main.js.map": "/argon-dashboard-react/static/js/main.a8b87b6c.chunk.js.map",
     "runtime-main.js": "/argon-dashboard-react/static/js/runtime-main.57cb8611.js",
     "runtime-main.js.map": "/argon-dashboard-react/static/js/runtime-main.57cb8611.js.map",
-    "static/js/2.5d5d814a.chunk.js": "/argon-dashboard-react/static/js/2.5d5d814a.chunk.js",
-    "static/js/2.5d5d814a.chunk.js.map": "/argon-dashboard-react/static/js/2.5d5d814a.chunk.js.map",
+    "static/js/2.10c58542.chunk.js": "/argon-dashboard-react/static/js/2.10c58542.chunk.js",
+    "static/js/2.10c58542.chunk.js.map": "/argon-dashboard-react/static/js/2.10c58542.chunk.js.map",
     "index.html": "/argon-dashboard-react/index.html",
-    "precache-manifest.a66eb896db1642783ced12989b8bae90.js": "/argon-dashboard-react/precache-manifest.a66eb896db1642783ced12989b8bae90.js",
+    "precache-manifest.632b6d3599ddb48f140065a3882dd44c.js": "/argon-dashboard-react/precache-manifest.632b6d3599ddb48f140065a3882dd44c.js",
     "service-worker.js": "/argon-dashboard-react/service-worker.js",
     "static/css/main.1e13e612.chunk.css.map": "/argon-dashboard-react/static/css/main.1e13e612.chunk.css.map",
-    "static/js/2.5d5d814a.chunk.js.LICENSE": "/argon-dashboard-react/static/js/2.5d5d814a.chunk.js.LICENSE",
-    "static/js/main.941fd899.chunk.js.LICENSE": "/argon-dashboard-react/static/js/main.941fd899.chunk.js.LICENSE",
+    "static/js/2.10c58542.chunk.js.LICENSE": "/argon-dashboard-react/static/js/2.10c58542.chunk.js.LICENSE",
+    "static/js/main.a8b87b6c.chunk.js.LICENSE": "/argon-dashboard-react/static/js/main.a8b87b6c.chunk.js.LICENSE",
     "static/media/argon-react-white.png": "/argon-dashboard-react/static/media/argon-react-white.275a2629.png",
     "static/media/argon-react.png": "/argon-dashboard-react/static/media/argon-react.f38ddea9.png",
     "static/media/all.min.css": "/argon-dashboard-react/static/media/fa-solid-900.815694de.woff",
-    "static/media/google.svg": "/argon-dashboard-react/static/media/google.87be59a1.svg",
     "static/media/nucleo.css": "/argon-dashboard-react/static/media/nucleo-icons.f82ec6ba.ttf",
     "static/media/profile-cover.jpg": "/argon-dashboard-react/static/media/profile-cover.e2582654.jpg",
     "static/media/team-1-800x800.jpg": "/argon-dashboard-react/static/media/team-1-800x800.53033970.jpg",
@@ -24,8 +23,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.57cb8611.js",
-    "static/js/2.5d5d814a.chunk.js",
+    "static/js/2.10c58542.chunk.js",
     "static/css/main.1e13e612.chunk.css",
-    "static/js/main.941fd899.chunk.js"
+    "static/js/main.a8b87b6c.chunk.js"
   ]
 }

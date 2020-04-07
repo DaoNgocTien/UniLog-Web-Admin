@@ -1,6 +1,6 @@
 import React from "react";
 //  react router
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 // reactstrap components
 import {
   Button,
@@ -13,11 +13,11 @@ import {
   InputGroupAddon,
   InputGroupText,
   InputGroup,
-  Row,
+  // Row,
   Col,
-  NavLink
+  // NavLink
 } from "reactstrap";
-import { Redirect } from "react-router-dom";
+// import { Redirect } from "react-router-dom";
 
 import { connect } from "react-redux";
 import Action from "../../../redux/Action/index";
@@ -48,7 +48,7 @@ class PasswordReset extends React.Component {
                   </span>
                   <span className="btn-inner--text">Github</span>
                 </Button> */}
-                <Button
+                {/* <Button
                   className="btn-neutral btn-icon"
                   color="default"
                   href="#pablo"
@@ -61,7 +61,7 @@ class PasswordReset extends React.Component {
                     />
                   </span>
                   <span className="btn-inner--text">Google</span>
-                </Button>
+                </Button> */}
               </div>
             </CardHeader>
             <CardBody className="px-lg-5 py-lg-5">

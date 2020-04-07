@@ -9,14 +9,14 @@ import {
     ModalHeader,
     ModalBody,
     ModalFooter,
-    Col,
-    Row,
+    // Col,
+    // Row,
     Form,
-    FormGroup,
+    // FormGroup,
     Label,
     Input,
-    FormFeedback,
-    FormText,
+    // FormFeedback,
+    // FormText,
   } from "reactstrap";
   
   //  redux component

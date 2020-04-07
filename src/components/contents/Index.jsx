@@ -70,7 +70,7 @@ class Index extends React.Component {
                       <h6 className="text-uppercase text-light ls-1 mb-1">
                         Overview
                       </h6>
-                      <h2 className="text-white mb-0">Sales value</h2>
+                      <h2 className="text-white mb-0">Exception Log</h2>
                     </div>
                     <div className="col">
                       <Nav className="justify-content-end" pills>
@@ -123,7 +123,7 @@ class Index extends React.Component {
                       <h6 className="text-uppercase text-muted ls-1 mb-1">
                         Performance
                       </h6>
-                      <h2 className="mb-0">Total orders</h2>
+                      <h2 className="mb-0">Total Log</h2>
                     </div>
                   </Row>
                 </CardHeader>
@@ -145,7 +145,7 @@ class Index extends React.Component {
                 <CardHeader className="border-0">
                   <Row className="align-items-center">
                     <div className="col">
-                      <h3 className="mb-0">Page visits</h3>
+                      <h3 className="mb-0">Total Application</h3>
                     </div>
                     <div className="col text-right">
                       <Button
@@ -162,9 +162,9 @@ class Index extends React.Component {
                 <Table className="align-items-center table-flush" responsive>
                   <thead className="thead-light">
                     <tr>
-                      <th scope="col">Page name</th>
-                      <th scope="col">Visitors</th>
-                      <th scope="col">Unique users</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Application Instances</th>
+                      <th scope="col">Logs</th>
                       <th scope="col">Bounce rate</th>
                     </tr>
                   </thead>
@@ -223,7 +223,7 @@ class Index extends React.Component {
                 <CardHeader className="border-0">
                   <Row className="align-items-center">
                     <div className="col">
-                      <h3 className="mb-0">Social traffic</h3>
+                      <h3 className="mb-0">Total Employee</h3>
                     </div>
                     <div className="col text-right">
                       <Button
@@ -240,9 +240,9 @@ class Index extends React.Component {
                 <Table className="align-items-center table-flush" responsive>
                   <thead className="thead-light">
                     <tr>
-                      <th scope="col">Referral</th>
-                      <th scope="col">Visitors</th>
-                      <th scope="col" />
+                      <th scope="col">Email</th>
+                      <th scope="col">Phone</th>
+                      <th scope="col">Role</th>
                     </tr>
                   </thead>
                   <tbody>

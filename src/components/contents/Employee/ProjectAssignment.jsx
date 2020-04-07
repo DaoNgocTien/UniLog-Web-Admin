@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 //reactstrap components
 import {
     Card,
@@ -7,8 +7,8 @@ import {
     Container,
     Row,
     Button,
-    Input,
-    UncontrolledTooltip
+    // Input,
+    // UncontrolledTooltip
     // Button,
     // Modal,
     // ModalHeader,
@@ -75,15 +75,15 @@ const ProjectAssignment = props => {
                                         app.id !== 22 ?
                                             <>
                                                 <tr>
-                                                    <td scope="col" key={uuidv1()}>
+                                                    <td  key={uuidv1()}>
                                                         {app.name}
 
                                                     </td>
 
-                                                    <td scope="col" key={uuidv1()}>
+                                                    <td  key={uuidv1()}>
                                                         {type}
                                                     </td>
-                                                    <td scope="col" key={uuidv1()}>
+                                                    <td  key={uuidv1()}>
                                                         {app.description}
                                                     </td>
 

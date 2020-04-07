@@ -5,7 +5,6 @@ import {
   DropdownItem,
   UncontrolledDropdown,
   DropdownToggle,
-  Media,
   Progress
 } from "reactstrap";
 
@@ -14,20 +13,13 @@ const Log = props => {
     data: {
       id,
       active,
-      app_code,
-      error_code_id,
       file_name,
       line_code,
       log_date,
-      log_type,
       message,
       project_name,
-      serverity5,
-      app_code_navigation,
-      error_code
     },
     disabled,
-    toggleInformationModal
   } = props;
   return (
     <tr>

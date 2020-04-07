@@ -22,7 +22,7 @@ import {
   FormFeedback,
   FormText,
 } from "reactstrap";
-import { Redirect } from "react-router-dom";
+// import { Redirect } from "react-router-dom";
 
 import { connect } from "react-redux";
 import {
@@ -31,7 +31,7 @@ import {
 import Action from "../../../redux/Action/index.js";
 
 //  presentation component
-import Register from "./Register.jsx";
+// import Register from "./Register.jsx";
 
 //const uuidv1 = require("uuid/v1");
 
@@ -111,7 +111,7 @@ class PasswordResetToken extends React.Component {
         <Col lg="5" md="7">
           <Card className="bg-secondary shadow border-0">
             <CardHeader className="bg-transparent pb-5">
-              <div className="text-muted text-center mt-2 mb-3">
+              {/* <div className="text-muted text-center mt-2 mb-3">
                 <small>Sign in with</small>
               </div>
               <div className="btn-wrapper text-center">
@@ -128,8 +128,8 @@ class PasswordResetToken extends React.Component {
                     />
                   </span>
                   <span className="btn-inner--text">Google</span>
-                </Button>
-              </div>
+                </Button> 
+              </div>*/}
             </CardHeader>
             <CardBody className="px-lg-5 py-lg-5">
               <div className="text-center text-muted mb-4">
@@ -182,8 +182,7 @@ class PasswordResetToken extends React.Component {
           <Row className="mt-3">
             <Col xs="6">
               <NavLink
-                className="text-light"
-                className="nav-link-icon"
+                className="nav-link-icon text-light"
                 to="/auth/login"
                 tag={Link}
               >

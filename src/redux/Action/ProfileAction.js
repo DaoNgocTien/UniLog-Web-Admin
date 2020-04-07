@@ -1,8 +1,8 @@
+// import {
+//   ApplicationActionTypes
+// } from "../constants";
 import {
-  ApplicationActionTypes
-} from "../constants";
-import {
-  ProfileActionTypes, LoginActionTypes
+  ProfileActionTypes
 } from "../constants.js";
 import Action from "../Action/index.js";
 import fetch from "cross-fetch";

@@ -2,7 +2,7 @@ import React, {
   Component
 } from "react";
 //  set up proptype
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 //  redux component
 //  set up redux
 import {
@@ -15,7 +15,7 @@ import Action from "../../../redux/Action/index.js";
 
 // reactstrap components
 import { Button, Container, Row, Col } from "reactstrap";
-import PasswordChangingModalContainer from "./../../contents/Profile/PasswordChangingModalContainer.js";
+// import PasswordChangingModalContainer from "./../../contents/Profile/PasswordChangingModalContainer.js";
 // const uuidv1 = require("uuid/v1");
 //  compose function:
 //  - (...fns): array all function need to compose

@@ -5,8 +5,6 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Col,
-  Row,
   Form,
   FormGroup,
   Label,
@@ -14,28 +12,17 @@ import {
   FormFeedback,
   FormText,
 
-  //  React tab
-  TabContent,
-  TabPane,
-  Nav,
-  NavItem,
-  NavLink,
-  Card,
   //Button
 } from "reactstrap";
-import classnames from "classnames";
 //  pure component: memo
 import React, { memo, useState } from "react";
-import { createRef } from "react";
 
-const uuidv1 = require("uuid/v1");
 
 const PasswordChangingModal = ({ fromProps }) => {
   let {
     modal,
     toggleInformationModal,
     employee,
-    validatePassword,
   } = fromProps;
 
   //  close button
@@ -46,12 +33,10 @@ const PasswordChangingModal = ({ fromProps }) => {
   );
 
   //  ref to general information
-  const currentPasswordRef = React.createRef();
   const newPasswordRef = React.createRef();
   const confirmedPasswordRef = React.createRef();
 
   //  Validation state
-  const [currentPasswordValidation, setCurrentPasswordValidation] = useState(null);
   const [newPasswordValidation, setNewPasswordValidation] = useState(null);
   const [confirmedPasswordValidation, setConfirmedPasswordValidation] = useState(null);
 
