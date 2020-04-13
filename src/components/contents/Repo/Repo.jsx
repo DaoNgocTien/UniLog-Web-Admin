@@ -80,13 +80,13 @@ class Repo extends Component {
                                     <tbody>
                                         {repoList[0] != null ? repoList.map((repo, key) => (
                                             <tr>
-                                                <td scope="col" key={uuidv1()}>
+                                                <td key={uuidv1()}>
                                                     {repo.name}
                                                 </td>
-                                                <td scope="col" key={uuidv1()}>
+                                                <td key={uuidv1()}>
                                                     {repo.server.name}
                                                 </td>
-                                                <td scope="col" key={uuidv1()}>
+                                                <td key={uuidv1()}>
                                                     {repo.repo_url}
                                                 </td>
                                                 

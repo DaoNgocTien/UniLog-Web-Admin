@@ -18,7 +18,8 @@ const initialState = {
     "id": 4,
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEwIiwibmJmIjoxNTg0MDg0MDUyLCJleHAiOjE1ODQ2ODg4NTIsImlhdCI6MTU4NDA4NDA1Mn0.BvtM4Y2c_baIqoHk7ZFMpfPRcSsWAvap1Af_DzCqvlk",
     "role": 1,
-    "email": "kachyctt@gmail.com"
+    "email": "kachyctt@gmail.com",
+    "manage_project": []
   },
   profile: {}
 };
@@ -38,10 +39,15 @@ const dictionary = {
   [STORE_LOGIN_INFORMATION]: (state, {
     payload
   }) => {
+    
     console.log("STORE_LOGIN_INFORMATION " + JSON.stringify(payload));
     return {
       ...state,
-      loginInfor: payload
+      loginInfor: {
+        ...payload,
+        "token" : payload.role === 5 ? "" : payload.token
+      }
+
     };
   },
 

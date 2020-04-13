@@ -31,18 +31,18 @@ const requestGetDataFetch = status => {
 };
 
 const getApplicationList = () => {
-  
+
   return async (dispatch, getState) => {
     try {
       //  inform store we are going to fetch some data
       await dispatch(requestGetDataFetch(true));
       // if fetching status of Application component is true
       if (getState().Application.fetchStatus) {
-        console.log("State: " + JSON.stringify(getState().Login.loginInfor.token));
+        console.log("getApplicationList State: " + JSON.stringify(getState().Login.loginInfor.token));
 
         //  get list Application from API
         const fetchRequest = await fetch(
-          `${APISettings.BASE_API_URL}/${APISettings.APPLICATION_API_URL}?ref_fields=systems%2Crepo`, {
+          `${APISettings.BASE_API_URL}/${APISettings.APPLICATION_API_URL}?ref_fields=systems%2Crepo%2Capplication_instances`, {
             method: "get",
             headers: {
               "Content-Type": "application/json",
@@ -72,7 +72,20 @@ const getApplicationList = () => {
         // );
 
         //  store payload data into store
-        await dispatch(storeApplicationListActionCreator(result));
+            //  extract data by role
+        let storeList = [];
+        if (getState().Login.loginInfor.role !== 1) {
+          getState().Login.loginInfor.manage_project.map(item => {
+            result.map(application => {
+              return item.application_id === application.id && item.application_id !== 22 ?
+                storeList.push(application) : null;
+            })
+          })
+        } else {
+          storeList = result;
+        }
+            //  store payload data into store
+        await dispatch(storeApplicationListActionCreator(storeList));
 
       }
     } catch (error) {
@@ -214,7 +227,7 @@ const updateApplicationGeneralInformation = ({
           status
         }
 
-console.log("111111 " +JSON.stringify(updateModel));
+        console.log("111111 " + JSON.stringify(updateModel));
         //  call API to update general information 
         const fetchRequest = await fetch(
           `${APISettings.BASE_API_URL}/${APISettings.APPLICATION_API_URL}`, {

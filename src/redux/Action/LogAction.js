@@ -72,6 +72,17 @@ const getLogList = (id = 0) => {
                 // );
 
                 //  store payload data into store
+                // let storeList = [];
+                // if (getState().Login.loginInfor.role !== 1) {
+                //   getState().Login.loginInfor.manage_project.map(item => {
+                //     result.map(log => {
+                //       return item.application_instance_id === instance.id && item.application_instance_id !== 22 ?
+                //         storeList.push(instance) : null;
+                //     })
+                //   })
+                // } else {
+                //   storeList = result;
+                // }
                 await dispatch(storeLogListActionCreator(result));
 
             }

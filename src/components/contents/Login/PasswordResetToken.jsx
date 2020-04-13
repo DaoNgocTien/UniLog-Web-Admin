@@ -192,8 +192,7 @@ class PasswordResetToken extends React.Component {
             </Col>
             <Col className="text-right" xs="6">
               <NavLink
-                className="text-light"
-                className="nav-link-icon"
+                className="nav-link-icon text-light"
                 to="/auth/register"
                 tag={Link}
               >

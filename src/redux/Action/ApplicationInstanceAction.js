@@ -70,7 +70,33 @@ const getApplicationInstanceList = () => {
         // );
 
         //  store payload data into store
-        await dispatch(storeApplicationInstanceListActionCreator(result));
+        let storeList = [];
+        if (getState().Login.loginInfor.role !== 1) {
+          if(getState().Login.loginInfor.role !== 2){
+            getState().Login.loginInfor.manage_project.map(item => {
+              result.map(instance => {
+                console.log ("storeList " + item.application_instance_id + " " + instance.id);
+                return item.application_instance_id === instance.id && item.application_instance_id !== 22 ?
+                  storeList.push(instance) : null;
+              })
+            })
+          }
+          else {
+            getState().Login.loginInfor.manage_project.map(item => {
+              result.map(instance => {
+                console.log ("storeList " + item.application_instance_id + " " + instance.id);
+                return item.application_id === instance.app_id && item.application_id !== 22 ?
+                  storeList.push(instance) : null;
+              })
+            })
+          }          
+        } else {
+          storeList = result;
+        }
+        storeList.forEach(element => {
+          console.log ("storeList aaa " + element.id);
+        });
+        await dispatch(storeApplicationInstanceListActionCreator(storeList));
 
       }
     } catch (error) {

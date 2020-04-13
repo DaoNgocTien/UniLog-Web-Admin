@@ -287,8 +287,7 @@ class Register extends React.Component {
           <Row className="mt-3">
             <Col xs="6">
               <NavLink
-                className="text-light"
-                className="nav-link-icon"
+                className="nav-link-icon text-light"
                 to="/auth/password-token"
                 tag={Link}
               >
@@ -298,8 +297,7 @@ class Register extends React.Component {
             </Col>
             <Col className="text-right" xs="6">
               <NavLink
-                className="text-light"
-                className="nav-link-icon"
+                className="nav-link-icon text-light"
                 to="/auth/login"
                 tag={Link}
               >

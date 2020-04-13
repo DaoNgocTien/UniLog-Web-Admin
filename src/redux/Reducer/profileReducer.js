@@ -38,57 +38,42 @@ const {
 const initialState = {
     fetchStatus: true,
     currentDataList: {
-        "id": 1,
+        "id": 15,
         "active": true,
-        "address": null,
-        "asp_net_user_id": 6,
-        "email": "string@gmail.com",
-        "name": null,
-        "phone": null,
-        "role": 1,
+        "address": "Q12, HCMC",
+        "asp_net_user_id": 28,
+        "email": "swd2020@gmail.com",
+        "name": "Jesse",
+        "phone": "0988388726",
+        "role": 5,
         "asp_net_user": null,
-        "manage_project": [{
-                "id": 5,
-                "account_id": 1,
-                "application_id": 5,
-                "application_instance_id": 1,
-                "application": null,
-                "application_instance": null
-            },
-            {
-                "id": 6,
-                "account_id": 1,
-                "application_id": 5,
-                "application_instance_id": 2,
-                "application": null,
-                "application_instance": null
-            },
-            {
-                "id": 7,
-                "account_id": 1,
-                "application_id": 5,
-                "application_instance_id": 3,
-                "application": null,
-                "application_instance": null
-            },
-            {
-                "id": 8,
-                "account_id": 1,
-                "application_id": 1,
-                "application_instance_id": 6,
-                "application": null,
-                "application_instance": null
-            },
-            {
-                "id": 9,
-                "account_id": 1,
-                "application_id": 2,
-                "application_instance_id": 6,
-                "application": null,
-                "application_instance": null
-            }
+        "manage_project": [
+          {
+            "id": 1056,
+            "account_id": 15,
+            "application_id": 2,
+            "application_instance_id": 22,
+            "application": null,
+            "application_instance": null
+          },
+          {
+            "id": 1057,
+            "account_id": 15,
+            "application_id": 3,
+            "application_instance_id": 22,
+            "application": null,
+            "application_instance": null
+          },
+          {
+            "id": 1058,
+            "account_id": 15,
+            "application_id": 1,
+            "application_instance_id": 22,
+            "application": null,
+            "application_instance": null
+          }
         ]
-    },
+      },
 
     toggleProfileComponent: true,
     toggleCreateModal: false,

@@ -100,7 +100,12 @@ class EmployeeContainer extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    data: state.Employee.currentDataList,
+    data: state.Login.loginInfor.role === 1 ? 
+    state.Employee.currentDataList
+    :
+    state.Employee.currentDataList.filter(item => {
+      return item.role === 3 || item.role === 4
+    }),
     own: ownProps
   };
 };

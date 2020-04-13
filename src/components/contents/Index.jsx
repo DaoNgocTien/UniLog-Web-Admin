@@ -31,6 +31,22 @@ import {
 
 import Header from "./../layouts/Headers/Header.jsx";
 
+//  redux component
+//  set up redux
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import Action from "./../../redux/Action/index.js";
+
+const uuidv1 = require("uuid/v1");
+//  compose function:
+//  - (...fns): array all function need to compose
+//  - x: collection / input value
+//  - reduceRight: array loop function, from right to left (last -> last - 1 -> last - 2 -> ...)
+//  =>  (y, f) => f(y), x === (previousValue, currentFunction) => currentFunction(previousValue), x
+//  =>  take last function in collectionFunction fns, use innitial value x, return value (y)
+//  =>  [a, b, c] => reduceRight((y, f) => f(y), x) === a(b(c))
+const compose = (...fns) => x => fns.reduceRight((y, f) => f(y), x);
+
 class Index extends React.Component {
   state = {
     activeNav: 1,
@@ -54,6 +70,9 @@ class Index extends React.Component {
     if (window.Chart) {
       parseOptions(Chart, chartOptions());
     }
+  }
+  componentDidMount() {
+    this.props.getData();
   }
   render() {
     return (
@@ -140,14 +159,14 @@ class Index extends React.Component {
             </Col>
           </Row>
           <Row className="mt-5">
-            <Col className="mb-5 mb-xl-0" xl="8">
+            <Col className="mb-5 mb-xl-0" xl="6">
               <Card className="shadow">
                 <CardHeader className="border-0">
                   <Row className="align-items-center">
                     <div className="col">
                       <h3 className="mb-0">Total Application</h3>
                     </div>
-                    <div className="col text-right">
+                    {/* <div className="col text-right">
                       <Button
                         color="primary"
                         href="#pablo"
@@ -156,7 +175,7 @@ class Index extends React.Component {
                       >
                         See all
                       </Button>
-                    </div>
+                    </div> */}
                   </Row>
                 </CardHeader>
                 <Table className="align-items-center table-flush" responsive>
@@ -165,11 +184,26 @@ class Index extends React.Component {
                       <th scope="col">Name</th>
                       <th scope="col">Application Instances</th>
                       <th scope="col">Logs</th>
-                      <th scope="col">Bounce rate</th>
+                      <th scope="col">Active</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                    {this.props.appData.map(app => {
+                      return (
+                        <>
+                          <tr>
+                            <th scope="row">{app.name}</th>
+                            <td>{app.application_instance.length} instances</td>
+                            <td>{app.log_count} logs</td>
+                            <td>
+                              <i className={app.active ? "fas fa-arrow-up text-success mr-3" : "fas fa-arrow-down text-success mr-3"} />{" "}
+                              {app.active ? "100%" : "0%"}
+                            </td>
+                          </tr>
+                        </>
+                      )
+                    })}
+                    {/* <tr>
                       <th scope="row">/argon/</th>
                       <td>4,569</td>
                       <td>340</td>
@@ -213,19 +247,19 @@ class Index extends React.Component {
                         <i className="fas fa-arrow-down text-danger mr-3" />{" "}
                         46,53%
                       </td>
-                    </tr>
+                    </tr> */}
                   </tbody>
                 </Table>
               </Card>
             </Col>
-            <Col xl="4">
+            <Col xl="6">
               <Card className="shadow">
                 <CardHeader className="border-0">
                   <Row className="align-items-center">
                     <div className="col">
                       <h3 className="mb-0">Total Employee</h3>
                     </div>
-                    <div className="col text-right">
+                    {/* <div className="col text-right">
                       <Button
                         color="primary"
                         href="#pablo"
@@ -234,7 +268,7 @@ class Index extends React.Component {
                       >
                         See all
                       </Button>
-                    </div>
+                    </div> */}
                   </Row>
                 </CardHeader>
                 <Table className="align-items-center table-flush" responsive>
@@ -246,7 +280,21 @@ class Index extends React.Component {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                    {this.props.empData.map(emp => {
+                      return (
+                        <>
+                          <tr>
+                            <th scope="row">{emp.name}</th>
+                            <td>{emp.phone}</td>
+                            <td>
+                              <i className={emp.active ? "fas fa-arrow-up text-success mr-3" : "fas fa-arrow-down text-success mr-3"} />
+                              {emp.role === 1 ? "Adminstrator" : emp.role === 2 ? "Manager" : emp.role === 3 ? "Developer" : emp.role === 4 ? "Tester" : "Guest"}
+                            </td>
+                          </tr>
+                        </>
+                      )
+                    })}
+                    {/* <tr>
                       <th scope="row">Facebook</th>
                       <td>1,480</td>
                       <td>
@@ -321,7 +369,7 @@ class Index extends React.Component {
                           </div>
                         </div>
                       </td>
-                    </tr>
+                    </tr> */}
                   </tbody>
                 </Table>
               </Card>
@@ -333,4 +381,29 @@ class Index extends React.Component {
   }
 }
 
-export default Index;
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    appData: state.Application.currentDataList,
+    empData: state.Employee.currentDataList,
+    own: ownProps
+  };
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  getData: async () => {
+    await dispatch(Action.Application.getData());
+    await dispatch(Action.Application.getData());
+    await dispatch(Action.Employee.getData());
+  },
+
+  dispatch
+});
+
+//  compose all redux HOC
+const enhance = compose(
+  withRouter,
+  connect(mapStateToProps, mapDispatchToProps, null)
+);
+
+export default enhance(Index);

@@ -42,7 +42,7 @@ const ApplicationInstanceInformationModal = ({ fromProps }) => {
       name = "string",
       release_url = "string",
       app_code = "string",
-      app
+      app_id
     }
   } = fromProps;
 
@@ -231,7 +231,7 @@ const ApplicationInstanceInformationModal = ({ fromProps }) => {
                 type="select"
                 id="applicationSelect"
                 name="applicationSelect"
-                defaultValue={app.id}
+                defaultValue={app_id}
                 disabled
               >
                 <option value={0}>Choose Application</option>
